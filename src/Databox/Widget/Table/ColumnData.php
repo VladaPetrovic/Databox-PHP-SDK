@@ -12,6 +12,13 @@ class ColumnData
     protected $value;
 
     /**
+     * Column previous value.
+     *
+     * @var string int float
+     */
+    protected $previous_value;
+
+    /**
      * Column change.
      *
      * @var string int float
@@ -61,6 +68,46 @@ class ColumnData
     }
 
     /**
+     * Getter for previous value.
+     *
+     * @return string int float
+     */
+    public function getPreviousValue()
+    {
+        return $this->previous_value;
+    }
+
+    /**
+     * Setter for value.
+     *
+     * @param float $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Setter for change.
+     *
+     * @param float $value
+     */
+    public function setChange($value)
+    {
+        $this->change = $value;
+    }
+
+    /**
+     * Setter for previous value.
+     *
+     * @param float $value
+     */
+    public function setPreviousValue($value)
+    {
+        $this->previous_value = $value;
+    }
+
+    /**
      * Getter for change.
      *
      * @return string int float
@@ -82,7 +129,7 @@ class ColumnData
 
     /**
      * Format that is applied for change in the table.
-     * 
+     *
      * @return string
      */
     public function getChangeFormat()
