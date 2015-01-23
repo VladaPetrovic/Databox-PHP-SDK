@@ -25,6 +25,12 @@ class Pie extends Base
     protected $changes = [];
 
     /**
+     * Pie formats
+     * @var array
+     */
+    protected $formats = [];
+
+    /**
      * Append to the key
      *
      * @var string
@@ -37,11 +43,12 @@ class Pie extends Base
      * @param string|int|float $value  The value of the slice.
      * @param string $change The change property of the value. Optional.
      */
-    public function addSlice($label, $value, $change = "")
+    public function addSlice($label, $value, $change = '', $formats = '')
     {
         $this->labels[]  = $label;
         $this->values[]  = $value;
         $this->changes[] = $change;
+        $this->formats[] = $formats;
     }
 
     /**
@@ -49,10 +56,14 @@ class Pie extends Base
      */
     public function getData()
     {
-        $response = [];
-        $response[] = new KPI($this->key . "@labels"  . $this->suffix, $this->labels, ($this->date ? $this->date : NULL));
-        $response[] = new KPI($this->key . "@values"  . $this->suffix, $this->values, ($this->date ? $this->date : NULL));
-        $response[] = new KPI($this->key . "@changes" . $this->suffix, $this->changes, ($this->date ? $this->date : NULL));
+        $date     = $this->date ? $this->date : null;
+        $response = [
+            new KPI($this->key . '@labels'  . $this->suffix, $this->labels, $date),
+            new KPI($this->key . "@values"  . $this->suffix, $this->values, $date),
+            new KPI($this->key . "@changes" . $this->suffix, $this->changes, $date),
+            new KPI($this->key . "@formats" . $this->suffix, $this->formats, $date)
+        ];
+
         return $response;
     }
 
