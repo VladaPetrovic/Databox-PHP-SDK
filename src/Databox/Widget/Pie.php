@@ -25,6 +25,13 @@ class Pie extends Base
     protected $changes = [];
 
     /**
+     * Append to the key
+     *
+     * @var string
+     */
+    private $suffix = '';
+
+    /**
      * Add a Pie/Funnel/Pipeline slice.
      * @param string $label  The label of the slice.
      * @param string|int|float $value  The value of the slice.
@@ -43,9 +50,20 @@ class Pie extends Base
     public function getData()
     {
         $response = [];
-        $response[] = new KPI($this->key . "@labels", $this->labels, ($this->date ? $this->date : NULL));
-        $response[] = new KPI($this->key . "@values", $this->values, ($this->date ? $this->date : NULL));
-        $response[] = new KPI($this->key . "@changes", $this->changes, ($this->date ? $this->date : NULL));
+        $response[] = new KPI($this->key . "@labels"  . $this->suffix, $this->labels, ($this->date ? $this->date : NULL));
+        $response[] = new KPI($this->key . "@values"  . $this->suffix, $this->values, ($this->date ? $this->date : NULL));
+        $response[] = new KPI($this->key . "@changes" . $this->suffix, $this->changes, ($this->date ? $this->date : NULL));
         return $response;
+    }
+
+    /**
+     * Set suffix
+     *
+     * @param  string $value String to append to key
+     * @return null
+     */
+    public function setSuffix($value)
+    {
+        $this->suffix = $value;
     }
 }
